@@ -1,6 +1,6 @@
 # Quotest List
 
-Simple quotest list using mongodb and vue.
+Simple quotest list using mongodb and vue (with bootstrap).
 
 # Usage
 
