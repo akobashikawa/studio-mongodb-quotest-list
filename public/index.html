@@ -4,52 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Quotes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <style>
-        .quote .quote input {
-            border: none;
+        [v-cloak]>* {
+            display: none;
+        }
+
+        .quote {
             font-style: italic;
         }
     </style>
 </head>
 
 <body>
-    <div class="container" id="app">
-        <a href="./">
-            <h1> Quotes List </h1>
-        </a>
-        <ul class="quotes">
-            <li class="quote" v-for="quote in quotes">
-                <strong class="name">
-                    {{quote.name}}
-                </strong>
-                <em class="quote">
-                    <div class="input-group">
-                        <input type="text" class="form-control" v-model="quote.quote">
-                        <div class="">
-                            <button type="button" class="btn btn-outline-danger" @click="deleteQuote(quote)">
-                                <i class="material-icons">delete_forever</i>
-                            </button>
-                            <button type="button" class="btn btn-outline-info" @click="updateQuote(quote)">
-                                <i class="material-icons">cloud_upload</i>
-                            </button>
-                        </div>
-                    </div>
-                </em>
-            </li>
-        </ul>
+    <div id="app">
+        <v-app>
+            <v-layout row>
+                <v-flex xs12 sm6 offset-sm3>
+                    <v-card>
+                        <v-toolbar color="blue" dark>
+                            <v-toolbar-side-icon></v-toolbar-side-icon>
+                            <v-toolbar-title>Quotest List</v-toolbar-title>
+                        </v-toolbar>
+                        <v-list three-line>
+                            <template v-for="(item, index) in quotes">
+                                <v-list-tile :key="item.name" avatar>
+                                    <v-icon large color="teal">format_quote</v-icon>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title v-html="item.name + ':'"></v-list-tile-title>
+                                        <v-text-field class="quote" v-model="item.quote" required></v-text-field>
+                                    </v-list-tile-content>
+                                    <v-icon color="error" @click="deleteQuote(item)">delete_forever</v-icon>
+                                    <v-icon color="info" @click="updateQuote(item)">cloud_upload</v-icon>
+                                </v-list-tile>
+                            </template>
+                        </v-list>
+                        <v-container>
+                            <div class="subheading">New Quote</div>
+                            <v-layout row wrap>
+                                <v-flex xs12>
+                                    <v-form v-model="quoteValid">
+                                        <v-text-field v-model="newQuote.name" :rules="nameRules" label="Name" required></v-text-field>
+                                        <v-text-field v-model="newQuote.quote" :rules="quoteRules" label="Quote" required></v-text-field>
+                                        <v-btn color="info" @click="addQuote">Add</v-btn>
+                                    </v-form>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                        <v-footer color="gray">
+                            <v-flex text-xs-center>
+                                <v-icon>face</v-icon>
+                                <a href="https://github.com/akobashikawa/studio-mongodb-quotest-list" target="_blank">@rulokoba</a>
+                            </v-flex>
+                        </v-footer>
+                    </v-card>
+                </v-flex>
+            </v-layout>
 
-        <form class="form">
-            <input type="text" class="form-control" placeholder="name" v-model="newQuote.name">
-            <input type="text" class="form-control" placeholder="quote" v-model="newQuote.quote">
-            <button type="button" class="btn btn-primary" @click="addQuote">Add quote</button>
-        </form>
+
+
+        </v-app>
 
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="main.js"></script>
 

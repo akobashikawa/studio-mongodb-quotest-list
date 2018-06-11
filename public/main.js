@@ -1,23 +1,33 @@
 var app = new Vue({
     el: '#app',
-    data: {
+    data: () => ({
         quotes: [],
+        quoteValid: false,
+        nameRules: [
+            v => !!v.trim() || 'Name is required'
+        ],
+        quoteRules: [
+            v => !!v.trim() || 'Quote is required'
+        ],
         newQuote: {
             name: '',
             quote: ''
         }
-    },
+    }),
 
     mounted: function () {
         this.getQuotes();
     },
 
     methods: {
+        about: function () {
+            console.log('about');
+        },
         getQuotes: function () {
-            axios('/quotes')
+            return axios('/quotes')
                 .then(result => {
                     this.quotes = result.data;
-                })
+                });
         },
         addQuote: function () {
             this.newQuote.name = this.newQuote.name.trim();
@@ -26,7 +36,11 @@ var app = new Vue({
                 const data = this.newQuote;
                 axios.post('/quotes', { data })
                     .then(result => {
-                        this.getQuotes();
+                        this.getQuotes()
+                            .then(() => {
+                                this.newQuote.name = '';
+                                this.newQuote.quote = '';
+                            });
                     });
             }
         },
