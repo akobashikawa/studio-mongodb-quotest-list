@@ -5,8 +5,6 @@ const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-app.set('view engine', 'ejs');
-
 var db;
 
 app.use(bodyParser.urlencoded({ extended: true }));
