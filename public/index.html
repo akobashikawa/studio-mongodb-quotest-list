@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quotes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .quote .quote input {
+            border: none;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <a href="./">
+            <h1> Quotes List </h1>
+        </a>
+        <ul class="quotes">
+            <li class="quote" v-for="quote in quotes">
+                <strong class="name">
+                    {{quote.name}}
+                </strong>
+                <em class="quote">
+                    <div class="input-group">
+                        <input type="text" class="form-control" v-model="quote.quote">
+                        <div class="">
+                            <button type="button" class="btn btn-outline-danger" @click="deleteQuote(quote)">
+                                <i class="material-icons">delete_forever</i>
+                            </button>
+                            <button type="button" class="btn btn-outline-info" @click="updateQuote(quote)">
+                                <i class="material-icons">cloud_upload</i>
+                            </button>
+                        </div>
+                    </div>
+                </em>
+            </li>
+        </ul>
+
+        <form class="form">
+            <input type="text" class="form-control" placeholder="name" v-model="newQuote.name">
+            <input type="text" class="form-control" placeholder="quote" v-model="newQuote.quote">
+            <button type="button" class="btn btn-primary" @click="addQuote">Add quote</button>
+        </form>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+
+</body>
+
+</html>
