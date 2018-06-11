@@ -2,7 +2,7 @@
 
 Simple quotest list using mongodb and vue (with bootstrap).
 
-# Usage
+## Usage
 
 - Clone this repo
 - Set .env from .env-sample with your mongodb credentials.
